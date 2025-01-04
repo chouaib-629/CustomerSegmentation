@@ -25,21 +25,27 @@ This project uses Hadoop MapReduce to perform customer segmentation based on the
 
 ## Technologies Used
 
-- **Hadoop**: Distributed storage and processing framework.
-- **Java**: Programming language for MapReduce logic.
-- **Python**: For preprocessing the dataset.
-- **Pandas, Matplotlib, Seaborn, SciPy**: Python libraries for preprocessing and statistical analysis.
-- **HDFS**: Hadoop Distributed File System.
+- **Hadoop**: A framework for distributed storage and processing of big data.
+- **Java**: The primary programming language used for writing the MapReduce logic.
+- **HDFS**: The Hadoop Distributed File System for storing large datasets.
+- **MapReduce**: The processing model used to process data.
+- **Python**: For dataset preprocessing and analysis.
+- **Libraries**: pandas, matplotlib, seaborn, scipy.stats
+- **Linux (Ubuntu)**: Operating System.
 
 ## Dataset Structure
 
-The dataset used in this project is the [Online Retail](https://archive.ics.uci.edu/dataset/352/online+retail) dataset, which includes transactional data for a UK-based online retailer. The data contains the following fields:
+The dataset used in this project is the [Online Retail Dataset](https://archive.ics.uci.edu/dataset/352/online+retail). It contains all transactions occurring between 01/12/2010 and 09/12/2011 for a UK-based and registered non-store online retailer. The company mainly sells unique all-occasion gifts, with many of its customers being wholesalers.
 
-| InvoiceNo | StockCode | Description                          | Quantity | InvoiceDate         | UnitPrice | CustomerID | Country          |
-|-----------|-----------|--------------------------------------|----------|---------------------|-----------|------------|------------------|
-| 536365    | 85123A    | WHITE HANGING HEART T-LIGHT HOLDER  | 6        | 2010-12-01 08:26:00 | 2.55      | 17850      | United Kingdom   |
-| 536365    | 71053     | WHITE METAL LANTERN                | 6        | 2010-12-01 08:26:00 | 3.39      | 17850      | United Kingdom   |
-| 536365    | 84406B    | CREAM CUPID HEARTS COAT HANGER     | 8        | 2010-12-01 08:26:00 | 2.75      | 17850      | United Kingdom   |
+**Sample of the dataset:**
+
+| InvoiceNo | StockCode | Description                        | Quantity | InvoiceDate         | UnitPrice (Sterling) | CustomerID | Country        |
+| --------- | --------- | ---------------------------------- | -------- | ------------------- | --------- | ---------- | -------------- |
+| 536365    | 85123A    | WHITE HANGING HEART T-LIGHT HOLDER | 6        | 01/12/2010 8:26 | 2.55      | 17850.0     | United Kingdom |
+| 536365    | 71053     | WHITE METAL LANTERN                | 6        | 01/12/2010 8:26 | 3.39      | 17850.0     | United Kingdom |
+| 536365    | 84406B    | CREAM CUPID HEARTS COAT HANGER     | 8        | 01/12/2010 8:26 | 2.75      | 17850.0     | United Kingdom |
+| 536365    | 84029G 	| KNITTED UNION FLAG HOT WATER BOTTLE | 6	      | 12/1/2010 8:26	 | 3.39      | 17850.0    | United Kingdom |
+| 536365    |	84029E   |	RED WOOLLY HOTTIE WHITE HEART.   | 6         | 12/1/2010 8:26   | 3.39      | 17850.0     | United Kingdom |
 
 ## Getting Started
 
@@ -71,7 +77,9 @@ To get started with this project, follow these steps:
    cd CustomerSegmentation
    ```
 
-3. Preprocess the dataset using the provided Python script:
+3. The downloaded dataset is in `Online Retail.xlsx` format. Save it as `online_retail.csv` using any spreadsheet tool.
+
+4. Preprocess the dataset using the provided Python script:
 
    - `.py` format:
 
@@ -83,13 +91,13 @@ To get started with this project, follow these steps:
 
      Open and run `preprocessing/main.ipynb` in Jupyter Notebook.
 
-4. Compile the Java classes:
+5. Compile the Java classes:
 
    ```bash
    javac -classpath `hadoop classpath` -d compiled_classes src/*.java
    ```
 
-5. Package the classes into a JAR file:
+6. Package the classes into a JAR file:
 
    ```bash
    jar cf CustomerSegmentation.jar -C compiled_classes/ .
@@ -108,7 +116,7 @@ To get started with this project, follow these steps:
 2. Upload the preprocessed dataset to HDFS:
 
    ```bash
-   hdfs dfs -put input/processed_online_retail.csv /CustomerSegmentation/
+   hdfs dfs -put processed_online_retail.csv /CustomerSegmentation/
    ```
 
 ### Step 2: Run the MapReduce Job
